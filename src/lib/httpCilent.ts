@@ -2,8 +2,8 @@ import axios from 'axios';
 
 // Create an Axios instance
 const api = axios.create({
-  baseURL: 'http://localhost:5000',
-//   baseURL: 'https://dev.ryzer.app/api',
+  // baseURL: 'http://localhost:5000',
+  baseURL: 'https://devsync-backend.up.railway.app',
   headers: {
     'Content-Type': 'application/json',
   },
