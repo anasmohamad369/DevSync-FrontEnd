@@ -1,7 +1,7 @@
 'use client';
 import React, {useEffect} from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { User, PlusCircle, Home, FileText, BarChart, CheckSquare, Layers, LogOut } from 'lucide-react';
+import { User,  Home,  BarChart, CheckSquare, Layers, LogOut } from 'lucide-react';
 import useProfile from '@/hooks/useProfile';
 import {Button} from '@/components/ui/button';
 

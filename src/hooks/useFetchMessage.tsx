@@ -1,17 +1,24 @@
+
 import api from "@/lib/httpCilent";
-import React from "react";
+import  {useState} from "react";
+
+interface ChatMessage {
+  username: string;
+  message: string;
+  timestamp?: Date;
+}
 
 const useFetchMessage = () => {
-  const [messages, setMessages] = React.useState<any[]>([]);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const fetchMessages = async () => {
     try {
       setLoading(true);
       const response = api.get("/api/chat"); // Adjust the endpoint as needed
       setMessages((await response).data);
-    } catch (err: any) {
-      setError(err);
+    } catch (err) {
+      setError("Failed to fetch messages");
     } finally {
       setLoading(false);
     }

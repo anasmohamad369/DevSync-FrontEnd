@@ -1,5 +1,5 @@
 import api from "@/lib/httpCilent";
-import React from "react";
+import React, {useState} from "react";
 
 // types/User.ts
  interface UserProfile {
@@ -11,9 +11,9 @@ import React from "react";
 }
 
 const useProfile = () => {
-const [data, setData] = React.useState<UserProfile | null>(null);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
+const [data, setData] = useState<UserProfile | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const fetchProfile = async () => {
     try {
@@ -21,8 +21,8 @@ const [data, setData] = React.useState<UserProfile | null>(null);
       const response = await api.get("api/auth/me"); // Adjust the endpoint as needed
       console.log(response)    
       setData(response?.data);
-    } catch (err: any) {
-      setError(err);
+    } catch {
+      setError("error fetching profile");
     } finally {
       setLoading(false);
     }
