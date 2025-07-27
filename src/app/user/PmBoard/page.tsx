@@ -14,6 +14,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import api from "@/lib/httpCilent";
+import TaskDialog from "@/utils/TaskDialog";
 
 type User = {
   _id: string;
@@ -24,15 +25,23 @@ type Task = {
   _id: string;
   title: string;
   description: string;
-  assignedTo: { _id: string; name: string };
+  status: "todo" | "in-progress" | "done";
+  assignedTo: {
+    name: string;
+    email: string;
+    id: string;
+  };
   dueDate: string;
-  status: 'todo' | 'in-progress' | 'done';
+  createdAt: string;
+  updatedAt?: string;
+  assignedBy?: string;
 };
 
 const TaskPage = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [users, setUsers] = useState<User[]>([]);
   const [open, setOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -55,10 +64,17 @@ const TaskPage = () => {
     const res = await api.get("/users");
     setUsers(res.data);
   };
+    const openDialog = (task: Task) => {
+    setSelectedTask(task);
+  };
+   const closeDialog = () => {
+    setSelectedTask(null);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+ 
 
   const handleCreate = async () => {
     try {
@@ -149,10 +165,12 @@ const TaskPage = () => {
       {/* Tasks Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {tasks.map((task) => (
-          <div
-            key={task._id}
-            className="bg-white border rounded-xl p-5 shadow hover:shadow-md transition-all"
-          >
+       <div
+  key={task._id}
+  className="bg-white border border-gray-200 rounded-xl p-5 shadow transition-all duration-300 ease-in-out transform hover:scale-[1.02] hover:shadow-lg hover:border-blue-500 hover:bg-blue-50 cursor-grab"
+  onClick={() => openDialog(task)}
+>
+
             <div className="flex justify-between items-start mb-2">
               <h3 className="text-lg font-bold text-indigo-800">{task.title}</h3>
               {getStatusBadge(task.status)}
@@ -173,6 +191,15 @@ const TaskPage = () => {
           </div>
         ))}
       </div>
+         <TaskDialog
+        open={!!selectedTask}
+        onOpenChange={closeDialog}
+        selectedTask={selectedTask}
+        // onStatusChange={handleStatusChange}
+        onClose={closeDialog}
+      />
+
+      
     </div>
   );
 };

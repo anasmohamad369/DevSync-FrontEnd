@@ -36,7 +36,7 @@ type Props = {
   open: boolean
   onOpenChange: (open: boolean) => void
   selectedTask: Task | null
-  onStatusChange: (taskId: string, newStatus: Task["status"]) => void
+  onStatusChange?: (taskId: string, newStatus: Task["status"]) => void
   onClose: () => void
 }
 
@@ -50,7 +50,7 @@ const TaskDialog: React.FC<Props> = ({ open, onOpenChange, selectedTask, onStatu
   }, [selectedTask])
 
   const handleSave = () => {
-    if (selectedTask) {
+    if (selectedTask && onStatusChange) {
       onStatusChange(selectedTask._id, status)
     }
     onClose()
