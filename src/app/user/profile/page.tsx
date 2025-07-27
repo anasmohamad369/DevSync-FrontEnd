@@ -4,7 +4,7 @@ import useProfile from "@/hooks/useProfile";
 import Profile from "@/utils/profile/Profile";
 import React, { useEffect } from "react";
 
-const page = () => {
+const Page = () => {
   const { data, loading, error, fetchProfile } = useProfile();
   console.log(data)
   
@@ -41,4 +41,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

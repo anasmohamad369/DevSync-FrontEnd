@@ -15,7 +15,7 @@ import { io } from "socket.io-client";
 import { Send, MessageCircle, Users, Wifi, WifiOff } from "lucide-react";
 import useFetchMessage from "@/hooks/useFetchMessage";
 
-const socket = io("http://localhost:5000"); // your backend URL
+const socket = io("https://devsync-backend.up.railway.app"); // your backend URL
 
 interface ChatMessage {
   username: string;
@@ -52,7 +52,6 @@ export default function ChatPage() {
       setChatLog(
         messages.map((msg) => ({
           ...msg,
-          timestamp: new Date(msg.timestamp), // use actual timestamp from DB
         }))
       );
     }
