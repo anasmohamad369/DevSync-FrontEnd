@@ -5,7 +5,7 @@ import  {useState} from "react";
 interface ChatMessage {
   username: string;
   message: string;
-  timestamp?: Date;
+  timestamp: Date;
 }
 
 const useFetchMessage = () => {

@@ -52,6 +52,7 @@ export default function ChatPage() {
       setChatLog(
         messages.map((msg) => ({
           ...msg,
+          timestamp: new Date(msg.timestamp), // use actual timestamp from DB
         }))
       );
     }
