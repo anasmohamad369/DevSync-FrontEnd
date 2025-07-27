@@ -5,6 +5,7 @@
 import { useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
+import api from '@/lib/httpCilent'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -14,10 +15,8 @@ export default function LoginPage() {
   // You can replace this with your actual login logic
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Logging in with:', { email, password })
-    // You can integrate your auth logic here (API call etc.)
       try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+      const res = await api.post('/api/auth/login', { email, password });
       localStorage.setItem('token', res.data.token);
       navigate.push('/user/tasks'); // Redirect to dashboard on successful login
     } catch (err) {

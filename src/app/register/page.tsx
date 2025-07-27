@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 import axios from "axios";
+import api from "@/lib/httpCilent";
 
 const Page = () => {
   const [email, setEmail] = React.useState("");
@@ -12,7 +13,7 @@ const Page = () => {
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault(); // ❗ Important to prevent default form behavior
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
+      const res = await api.post("/api/auth/register", {
         email,
         password,
         name,
